@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+body { font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto; color: #333; }
+h1 { color: #2c3e50; }
+h2 { color: #2980b9; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+h3 { color: #555; margin-bottom: 4px; }
+.item { margin-bottom: 18px; }
+.de  { border-left: 4px solid #27ae60; padding-left: 10px; }
+.eu  { border-left: 4px solid #2980b9; padding-left: 10px; }
+.gl  { border-left: 4px solid #7f8c8d; padding-left: 10px; }
+.stats { background: #f8f9fa; padding: 12px; margin-top: 24px; font-size: 0.9em; color: #666; }
+a { color: #2980b9; }
+pre { white-space: pre-wrap; font-family: inherit; }
+</style>
+</head>
+<body>
+<h1>{{ subject }}</h1>
+
+{% if newsletters %}
+<h2>Newsletter Highlights</h2>
+{% for nl in newsletters %}
+<div class="item">
+  <h3>{{ nl.subject }} &mdash; <small>{{ nl.sender }} ({{ nl.date }})</small></h3>
+  <pre>{{ nl.summary }}</pre>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if de_items %}
+<h2>Germany &mdash; Job Intel</h2>
+{% for item in de_items %}
+<div class="item de">
+  <strong><a href="{{ item.url }}">{{ item.title }}</a></strong>
+  <p>{{ item.summary }}</p>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if eu_items %}
+<h2>Europe &mdash; Job Intel</h2>
+{% for item in eu_items %}
+<div class="item eu">
+  <strong><a href="{{ item.url }}">{{ item.title }}</a></strong>
+  <p>{{ item.summary }}</p>
+</div>
+{% endfor %}
+{% endif %}
+
+{% if global_items %}
+<h2>Global &mdash; Job Intel</h2>
+{% for item in global_items %}
+<div class="item gl">
+  <strong><a href="{{ item.url }}">{{ item.title }}</a></strong>
+  <p>{{ item.summary }}</p>
+</div>
+{% endfor %}
+{% endif %}
+
+<div class="stats">
+  {{ newsletter_count }} newsletter{{ 's' if newsletter_count != 1 else '' }} |
+  {{ intel_count }} companies found |
+  DE {{ de_count }} | EU {{ eu_count }} | Global {{ global_count }}
+</div>
+</body>
+</html>

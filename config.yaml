@@ -1,0 +1,51 @@
+gmail:
+  email: "${GMAIL_EMAIL}"
+  app_password: "${GMAIL_APP_PASSWORD}"
+  imap_server: "imap.gmail.com"
+
+newsletters:
+  senders: []
+
+openclaw:
+  base_url: "${OPENCLAW_BASE_URL}"
+
+apify:
+  api_token: "${APIFY_API_TOKEN}"
+  actor_id: "apify/rss-feed-scraper"
+  timeout_secs: 600
+
+keywords:
+  sectors:
+    - "AI for engineering"
+    - "computational engineering"
+    - "simulation software"
+    - "digital twins"
+    - "physics-informed machine learning"
+    - "FEA software"
+    - "CAE startup"
+  signals:
+    - "raised funding"
+    - "Series A"
+    - "hiring"
+    - "new round"
+    - "expansion"
+
+digest:
+  send_to: "${DIGEST_SEND_TO}"
+  send_day: "sunday"
+  send_hour: 8
+
+state:
+  file: "data/state.json"
+  prune_after_days: 30
+  default_lookback_days: 7
+
+lock:
+  file: "data/run.lock"
+  stale_minutes: 30
+
+openclaw_resilience:
+  timeout_seconds: 60
+  max_retries: 2
+  max_input_chars: 4000
+  degraded_extract_chars: 200
