@@ -1,0 +1,13 @@
+.env
+*.pyc
+__pycache__/
+.pytest_cache/
+data/state.json
+data/state.json.bak
+data/state.json.tmp
+data/.initialized
+data/run.lock
+data/run.lock.meta
+logs/*.log
+logs/digest-*.html
+.claude/
