@@ -10,12 +10,13 @@ DEGRADED_PREFIX = "[PARTIAL] "
 def _call(prompt: str, config: dict) -> str:
     res = config["openclaw_resilience"]
     url = f"{config['openclaw']['base_url']}/api/generate"
+    model = config["openclaw"].get("model", "qwen3:8b")
     last_exc = None
     for attempt in range(res["max_retries"] + 1):
         try:
             r = requests.post(
                 url,
-                json={"model": "default", "prompt": prompt, "stream": False},
+                json={"model": model, "prompt": prompt, "stream": False},
                 timeout=res["timeout_seconds"],
             )
             r.raise_for_status()

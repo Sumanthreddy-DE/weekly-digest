@@ -8,6 +8,7 @@ newsletters:
 
 openclaw:
   base_url: "${OPENCLAW_BASE_URL}"
+  model: "qwen3:8b"
 
 apify:
   api_token: "${APIFY_API_TOKEN}"
@@ -23,12 +24,16 @@ keywords:
     - "physics-informed machine learning"
     - "FEA software"
     - "CAE startup"
+    - "composite materials"
+    - "structural mechanics"
+    - "structural engineering software"
   signals:
     - "raised funding"
     - "Series A"
+    - "Series B"
+    - "Seed funding"
     - "hiring"
     - "new round"
-    - "expansion"
 
 digest:
   send_to: "${DIGEST_SEND_TO}"

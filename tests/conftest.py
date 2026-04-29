@@ -10,7 +10,7 @@ def config():
             "imap_server": "imap.gmail.com",
         },
         "newsletters": {"senders": ["sender@example.com"]},
-        "openclaw": {"base_url": "http://localhost:11434"},
+        "openclaw": {"base_url": "http://localhost:11434", "model": "qwen3:8b"},
         "apify": {
             "api_token": "test-token",
             "actor_id": "apify/rss-feed-scraper",

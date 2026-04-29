@@ -30,15 +30,19 @@ def _is_process_alive(pid: int) -> bool:
         return False
 
 
+def _meta_path(lock_path: str) -> str:
+    return lock_path + ".meta"
+
+
 def _read_meta(lock_path: str) -> dict:
     try:
-        return json.loads(Path(lock_path).read_text())
+        return json.loads(Path(_meta_path(lock_path)).read_text())
     except Exception:
         return {}
 
 
 def _write_meta(lock_path: str) -> None:
-    Path(lock_path).write_text(
+    Path(_meta_path(lock_path)).write_text(
         json.dumps({"pid": os.getpid(), "acquired_at": datetime.now().isoformat()})
     )
 
@@ -53,6 +57,7 @@ def acquire_lock(lock_path: str, stale_minutes: int):
         try:
             yield
         finally:
+            Path(_meta_path(lock_path)).unlink(missing_ok=True)
             fl.release()
     except Timeout:
         meta = _read_meta(lock_path)
@@ -66,12 +71,14 @@ def acquire_lock(lock_path: str, stale_minutes: int):
         if pid and not _is_process_alive(pid) and age_minutes > stale_minutes:
             log.warning("Stale lock (PID %s, %.1f min), reclaiming", pid, age_minutes)
             Path(lock_path).unlink(missing_ok=True)
+            Path(_meta_path(lock_path)).unlink(missing_ok=True)
             fl2 = FileLock(lock_path, timeout=5)
             fl2.acquire()
             _write_meta(lock_path)
             try:
                 yield
             finally:
+                Path(_meta_path(lock_path)).unlink(missing_ok=True)
                 fl2.release()
         else:
             raise LockHeldError(f"Pipeline already running (PID {pid}). Aborting.")
