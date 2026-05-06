@@ -14,29 +14,29 @@ from discovery.sources.yc_companies import YCCompaniesSource
 def all_sources(cfg: dict, include_hard: bool = False):
     sources = []
     source_cfg = cfg["discovery"]["sources"]
-    if source_cfg["eu_startups"]["enabled"]:
+    if source_cfg.get("eu_startups", {}).get("enabled"):
         sources.append(EUStartupsSource(cfg))
-    if source_cfg["yc_companies"]["enabled"]:
+    if source_cfg.get("yc_companies", {}).get("enabled"):
         sources.append(YCCompaniesSource(cfg))
-    if source_cfg["berlin_ai_map"]["enabled"]:
+    if source_cfg.get("berlin_ai_map", {}).get("enabled"):
         sources.append(BerlinAIMapSource(cfg))
-    if source_cfg["bayern_innovativ"]["enabled"]:
+    if source_cfg.get("bayern_innovativ", {}).get("enabled"):
         sources.append(BayernInnovativSource(cfg))
-    if source_cfg["deutsche_startups"]["enabled"]:
+    if source_cfg.get("deutsche_startups", {}).get("enabled"):
         sources.append(DeutscheStartupsSource(cfg))
-    if source_cfg["plug_and_play_munich"]["enabled"]:
+    if source_cfg.get("plug_and_play_munich", {}).get("enabled"):
         sources.append(PlugAndPlayMunichSource(cfg))
-    if source_cfg["ai_made_in_germany"]["enabled"]:
+    if source_cfg.get("ai_made_in_germany", {}).get("enabled"):
         sources.append(AIMadeInGermanySource(cfg))
-    if source_cfg["tech_eu"]["enabled"]:
+    if source_cfg.get("tech_eu", {}).get("enabled"):
         sources.append(TechEUSource(cfg))
     if include_hard:
-        if source_cfg["sifted"]["enabled"]:
+        if source_cfg.get("sifted", {}).get("enabled"):
             sources.append(SiftedSource(cfg))
-        if source_cfg["google_news_de"]["enabled"]:
+        if source_cfg.get("google_news_de", {}).get("enabled"):
             sources.append(GoogleNewsSource(cfg, geo="DE"))
-        if source_cfg["google_news_en"]["enabled"]:
+        if source_cfg.get("google_news_en", {}).get("enabled"):
             sources.append(GoogleNewsSource(cfg, geo="EN"))
-        if source_cfg["hn_who_is_hiring"]["enabled"]:
+        if source_cfg.get("hn_who_is_hiring", {}).get("enabled"):
             sources.append(HNHiringSource(cfg))
     return sources

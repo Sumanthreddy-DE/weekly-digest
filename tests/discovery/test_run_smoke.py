@@ -28,6 +28,11 @@ class DummyResponse:
 
 def test_run_smoke(tmp_path, monkeypatch):
     config_path = tmp_path / "config.yaml"
+    cp_dir = (tmp_path / 'checkpoints').as_posix()
+    out_dir = (tmp_path / 'reports').as_posix()
+    comp_file = (tmp_path / 'companies.json').as_posix()
+    jobs_file = (tmp_path / 'jobs.json').as_posix()
+    jobs_md = (tmp_path / 'jobs.md').as_posix()
     config_path.write_text(
         f"""
 openclaw:
@@ -39,9 +44,9 @@ discovery:
   max_companies_total: 10
   rss_delay_seconds: 0
   per_source_timeout_seconds: 1800
-  checkpoint_dir: \"{tmp_path / 'checkpoints'}\"
-  output_dir: \"{tmp_path / 'reports'}\"
-  companies_file: \"{tmp_path / 'companies.json'}\"
+  checkpoint_dir: {cp_dir}
+  output_dir: {out_dir}
+  companies_file: {comp_file}
   ollama_extractor:
     model: qwen3:8b
     format: json
@@ -52,8 +57,8 @@ discovery:
 
 jobs:
   enabled: true
-  output_file: \"{tmp_path / 'jobs.json'}\"
-  report_file: \"{tmp_path / 'jobs.md'}\"
+  output_file: {jobs_file}
+  report_file: {jobs_md}
   geo_filter: [DE]
   sources:
     careers_pages: {{ enabled: true }}

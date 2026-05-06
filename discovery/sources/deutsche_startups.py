@@ -76,10 +76,10 @@ class DeutscheStartupsSource(SourceBase):
         lowered = text.lower()
         sector_map = {
             "manufacturing_ai": ["industrie", "maschinenbau", "manufacturing", "industrial"],
-            "ai_engineering": ["engineering", "simulation", "ki", "ai"],
+            "ai_engineering": ["engineering", "simulation", "ki", " ai "],
             "composite_materials": ["material", "composite", "verbund"],
             "aerospace": ["luftfahrt", "aerospace"],
-            "structural_mechanics": ["struktur", "mechanik"],
+            "structural_mechanics": ["struktur", "mechanik", "mechanics"],
         }
         matches = []
         for sector, keywords in sector_map.items():

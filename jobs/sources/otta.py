@@ -57,5 +57,5 @@ class OttaSource(JobSourceBase):
     @staticmethod
     def _looks_like_ai_eng(title: str) -> bool:
         lowered = title.lower()
-        keywords = ["ai", "machine learning", "ml engineer", "simulation", "computational", "data scientist"]
+        keywords = ["ai", "machine learning", "ml engineer", "ml ", "simulation", "computational", "data scientist"]
         return any(keyword in lowered for keyword in keywords)
