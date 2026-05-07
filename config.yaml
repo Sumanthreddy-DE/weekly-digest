@@ -56,7 +56,7 @@ openclaw_resilience:
   degraded_extract_chars: 200
 
 discovery:
-  enable_hard_sources: false
+  enable_hard_sources: true
   max_companies_total: 600
   rss_delay_seconds: 2
   per_source_timeout_seconds: 1800
@@ -80,7 +80,7 @@ discovery:
     ai_made_in_germany: { enabled: true }
     google_news_de: { enabled: false }
     google_news_en: { enabled: false }
-    hn_who_is_hiring: { enabled: false }
+    hn_who_is_hiring: { enabled: true }
 
 jobs:
   enabled: true
@@ -89,7 +89,7 @@ jobs:
   geo_filter: ["DE", "AT", "CH", "NL", "FR", "ES", "IT", "PL", "SE", "DK", "FI", "NO", "BE", "IE", "PT", "CZ"]
   sources:
     careers_pages: { enabled: true }
-    hn_hiring: { enabled: false }
+    hn_hiring: { enabled: true }
     stepstone: { enabled: true }
     wellfound: { enabled: true }
     otta: { enabled: true }
