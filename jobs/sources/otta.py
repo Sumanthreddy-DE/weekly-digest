@@ -1,18 +1,32 @@
 from __future__ import annotations
 
 import hashlib
+import logging
 from datetime import datetime, timezone
 from urllib.parse import urljoin
 
+import requests
 from bs4 import BeautifulSoup
 
 from jobs.models import Job
 from jobs.sources.base import JobSourceBase
 
+log = logging.getLogger(__name__)
+
 
 class OttaSource(JobSourceBase):
+    USER_AGENT = "Mozilla/5.0 (compatible; ai-eng-tracker/0.1)"
+    DEFAULT_SEARCH_URL = "https://otta.com/jobs?q=machine+learning&l=berlin"
+
     def run(self):
-        return []
+        search_url = self.config.get("jobs", {}).get("sources", {}).get("otta", {}).get("search_url", self.DEFAULT_SEARCH_URL)
+        try:
+            response = requests.get(search_url, timeout=30, headers={"User-Agent": self.USER_AGENT})
+            response.raise_for_status()
+            return self.parse_jobs_page(response.text, search_url)
+        except Exception as exc:
+            log.warning("Otta fetch failed: %s", exc)
+            return []
 
     def parse_jobs_page(self, html: str, source_url: str) -> list[Job]:
         soup = BeautifulSoup(html, "lxml")
