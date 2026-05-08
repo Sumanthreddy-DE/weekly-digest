@@ -42,12 +42,19 @@ def main(argv=None) -> int:
 
     jobs = []
     for source in sources:
-        for job in source.run():
-            if not is_ai_eng_role(job.role_title, job.notes or ""):
-                continue
-            if not is_de_eu(job.country):
-                continue
-            jobs.append(job)
+        source_name = type(source).__name__
+        log.info("Source %s starting", source_name)
+        try:
+            for job in source.run():
+                if not is_ai_eng_role(job.role_title, job.notes or ""):
+                    continue
+                if not is_de_eu(job.country):
+                    continue
+                jobs.append(job)
+            log.info("Source %s done, total jobs so far: %d", source_name, len(jobs))
+        except Exception as exc:
+            log.error("Source %s crashed: %s", source_name, exc)
+            continue
 
     out_path = Path(cfg["jobs"]["output_file"])
     out_path.parent.mkdir(parents=True, exist_ok=True)
