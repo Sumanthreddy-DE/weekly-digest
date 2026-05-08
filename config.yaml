@@ -54,3 +54,42 @@ openclaw_resilience:
   max_retries: 2
   max_input_chars: 4000
   degraded_extract_chars: 200
+
+discovery:
+  enable_hard_sources: true
+  max_companies_total: 600
+  rss_delay_seconds: 2
+  per_source_timeout_seconds: 1800
+  checkpoint_dir: "data/checkpoints"
+  output_dir: "data/reports"
+  companies_file: "data/companies.json"
+  ollama_extractor:
+    model: "qwen3:8b"
+    format: "json"
+    timeout_seconds: 90
+    max_retries: 1
+  sources:
+    eu_startups: { enabled: true, max_pages: 50 }
+    yc_companies: { enabled: true, tags: ["industrial", "manufacturing", "hardware"] }
+    berlin_ai_map: { enabled: true }
+    bayern_innovativ: { enabled: true }
+    deutsche_startups: { enabled: true, max_pages: 30 }
+    plug_and_play_munich: { enabled: true }
+    sifted: { enabled: false }
+    tech_eu: { enabled: true }
+    ai_made_in_germany: { enabled: true }
+    google_news_de: { enabled: false }
+    google_news_en: { enabled: false }
+    hn_who_is_hiring: { enabled: false }
+
+jobs:
+  enabled: true
+  output_file: "data/jobs.json"
+  report_file: "data/reports/jobs-DE-EU.md"
+  geo_filter: ["DE", "AT", "CH", "NL", "FR", "ES", "IT", "PL", "SE", "DK", "FI", "NO", "BE", "IE", "PT", "CZ"]
+  sources:
+    careers_pages: { enabled: true }
+    hn_hiring: { enabled: false }
+    stepstone: { enabled: true }
+    wellfound: { enabled: true }
+    otta: { enabled: true }

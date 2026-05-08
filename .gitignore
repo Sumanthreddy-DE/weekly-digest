@@ -8,6 +8,12 @@ data/state.json.tmp
 data/.initialized
 data/run.lock
 data/run.lock.meta
+data/reports/
+data/checkpoints/
+data/companies.json
+data/jobs.json
+data/scrape_demo.json
+data/archive/
 logs/*.log
 logs/digest-*.html
 .claude/
